@@ -39,12 +39,12 @@ resource "proxmox_vm_qemu" "proxmox_vm" {
 
   network {
     model  = "virtio"
-    bridge = "vmbr0"
+    bridge = var.bridge0
   }
 
   network {
     model  = "virtio"
-    bridge = "vmbr3"
+    bridge = var.bridge1
   }
 
   os_type   = "cloud-init"

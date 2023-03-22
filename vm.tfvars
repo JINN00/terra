@@ -21,3 +21,5 @@ gateway0="192.168.1.1"
 gateway1=null
 storage="storage"
 target-node="node1"
+bridge0="vmbr0"
+bridge1="vmbr1"

@@ -11,7 +11,7 @@ variable "dns-server" {
 
 variable "gateway0" {
         type = string
-        description = "Please Input gateway IP for VM eg. 223.130.101.1"
+        description = "Please Input gateway IP for VM eg. 192.168.1.1"
 }
 
 variable "gateway1" {
@@ -31,3 +31,16 @@ variable "target-node" {
 	description = "Please Specify target node for Proxmox Cluster"
 	nullable = false
 }
+
+variable "bridge0" {
+        type = string
+        description = "Please Specify first bridge interface for VM"
+        nullable = false
+}
+
+variable "bridge1" {
+        type = string
+        description = "Please Specify second bridge interface for VM"
+        nullable = false
+}
+
