@@ -11,7 +11,7 @@ variable "dns-server" {
 
 variable "gateway0" {
         type = string
-        description = "Please Input gateway IP for VM eg. 192.168.1.2"
+        description = "Please Input gateway IP for VM eg. 223.130.101.1"
 }
 
 variable "gateway1" {
@@ -20,3 +20,14 @@ variable "gateway1" {
         description = "Please Input gateway IP for VM eg. 10.0.0.1"
 }
 
+variable "storage" {
+	type = string
+	description = "Please Specify target storage name for Proxmox VE"
+	nullable = false
+}
+
+variable "target-node" {
+	type = string
+	description = "Please Specify target node for Proxmox Cluster"
+	nullable = false
+}

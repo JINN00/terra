@@ -8,7 +8,6 @@ terraform {
 }
 
 provider "proxmox" {
-  pm_api_url = "https://test.co.kr:8006/api2/json"
   pm_debug = true
 }
 
@@ -17,10 +16,10 @@ resource "proxmox_vm_qemu" "proxmox_vm" {
 
   vmid        = each.key
   name        = each.value.vmname
-  target_node = "test"
+  target_node = var.target-node
  
   clone = "centos7-template"
-  full_clone = "false"
+  full_clone = "true"
 
   cpu     = "kvm64"
   cores   = each.value.cores
@@ -31,9 +30,11 @@ resource "proxmox_vm_qemu" "proxmox_vm" {
   boot    = "order=scsi0"
 
   disk {
-    storage = "btc-128k"
+    storage = var.storage
     type  = "scsi"
+    file  = "vm-${each.key}-disk-0"
     size  = each.value.disk0size
+    volume = "${var.storage}:vm-${each.key}-disk-0" 
   }
 
   network {
@@ -46,11 +47,10 @@ resource "proxmox_vm_qemu" "proxmox_vm" {
     bridge = "vmbr3"
   }
 
+  os_type   = "cloud-init"
   ssh_user        = "root"
   sshkeys = file("${path.module}/id_rsa.pub")
-
-  os_type   = "cloud-init"
-
   ipconfig0 = "ip=${each.value.cidr0},gw=${var.gateway0}"
   ipconfig1 = var.gateway1 == null ? "ip=${each.value.cidr1}" : "ip=${each.value.cidr1},gw=${var.gateway1}"
+  nameserver = var.dns-server
 }
